@@ -3,31 +3,25 @@ import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
-import { Calculate } from "./components/Calculate";
-import { Home } from "./components/Home";
-import { Leagues } from "./components/Leagues";
-import { Teams } from "./components/Teams";
-import { BattleSimulator } from "./components/BattleSimulator";
-import { Pokedex } from "./components/Pokedex";
+import { PageContent } from "./components/page-components/PageContent";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
   const [activePage, setActivePage] = useState("Home");
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+  const handleNavChange = (newValue: string) => {
+    setActivePage(newValue);
+  };
 
   return (
-    <>
+    <div className="layout-column">
       <header>
         <h1><span>Poke</span>Prep</h1>
       </header>
-      <Navbar />
-      <Home />
-    </>
+      <div className="layout-row">
+        <Navbar onUpdate={handleNavChange}/>
+        <PageContent active={activePage}/>
+      </div>
+    </div>
   );
 }
 

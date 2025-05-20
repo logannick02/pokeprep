@@ -1,8 +1,8 @@
-import "../styles/Home.css";
+import "../../styles/Home.css";
 
 export const Home = () => {
     return (
-        <div className="page-content">
+        <div className="home-page">
             <h1>Home</h1>
         </div>
     );

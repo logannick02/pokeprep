@@ -8,22 +8,23 @@ import {
     BookButton,
 } from "./CustomIcons";
 
-export const Navbar = () => {
+interface Props {
+    onUpdate: (value: string) => void;
+}
+
+export const Navbar = (props: Props) => {
     const [activeBtn, setActiveBtn] = useState("Home");
 
-    const btnIcon = (btn: string) => {
-        if (btn === activeBtn) {
-            return (
-                <div className=""></div>
-            );
-        }
+    const handleClick = (page: string) => {
+        setActiveBtn(page);
+        props.onUpdate(page);
     }
 
     return (
         <>
             <div className="sidenav">
                 <button
-                    onClick={() => setActiveBtn("Home")}
+                    onClick={() => handleClick("Home")}
                     className={activeBtn === "Home" ? "selected" : ""}
                 >
                     <div className="elems">
@@ -32,7 +33,7 @@ export const Navbar = () => {
                     </div>                    
                 </button>
                 <button
-                    onClick={() => setActiveBtn("Teams")}
+                    onClick={() => handleClick("Teams")}
                     className={activeBtn === "Teams" ? "selected" : ""}
                 >
                     <div className="elems">
@@ -41,7 +42,7 @@ export const Navbar = () => {
                     </div>
                 </button>
                 <button
-                    onClick={() => setActiveBtn("Calculate")}
+                    onClick={() => handleClick("Calculate")}
                     className={activeBtn === "Calculate" ? "selected" : ""}
                 >
                     <div className="elems">
@@ -50,7 +51,7 @@ export const Navbar = () => {
                     </div>
                 </button>
                 <button
-                    onClick={() => setActiveBtn("Leagues")}
+                    onClick={() => handleClick("Leagues")}
                     className={activeBtn === "Leagues" ? "selected" : ""}
                 >
                     <div className="elems">
@@ -59,7 +60,7 @@ export const Navbar = () => {
                     </div>
                 </button>
                 <button
-                    onClick={() => setActiveBtn("Simulate")}
+                    onClick={() => handleClick("Simulate")}
                     className={activeBtn === "Simulate" ? "selected" : ""}
                 >
                     <div className="elems">
@@ -68,7 +69,7 @@ export const Navbar = () => {
                     </div>
                 </button>
                 <button
-                    onClick={() => setActiveBtn("Pokedex")}
+                    onClick={() => handleClick("Pokedex")}
                     className={activeBtn === "Pokedex" ? "selected" : ""}
                 >
                     <div className="elems">
