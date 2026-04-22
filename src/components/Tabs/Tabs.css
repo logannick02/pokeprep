@@ -1,0 +1,38 @@
+.tabs-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.tabs-list button {
+    all: unset;
+    padding: 4px 16px 4px 16px;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tabs-list::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 33.333%;
+    height: 2px;
+    background: #a78bfa;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(calc(var(--active-index) * 100%));
+}
+
+@keyframes flash {
+    0% {background: transparent; }
+    20% {background: #3f3f3f; }
+    100% {background: transparent; }
+}
+
+.tabs-list button:active {
+    animation: flash 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
