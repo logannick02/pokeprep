@@ -20,7 +20,11 @@ export const Tabs = ({children, defaultValue, defaultIndex}: {children: React.Re
 
 export const TabsList = ({children}: {children: React.ReactNode}) => {
     const {activeIndex} = useTabs();
-    return <div className="tabs-list" style={{ '--active-index': activeIndex } as React.CSSProperties}>{children}</div>
+    return (
+        <div className="tabs-header">
+            <div className="tabs-list" style={{ '--active-index': activeIndex } as React.CSSProperties}>{children}</div>
+        </div>
+    );
 }
 
 export const TabsTrigger = ({value, index, children}: {value: string, index: number, children: React.ReactNode}) => {
@@ -35,5 +39,9 @@ export const TabsTrigger = ({value, index, children}: {value: string, index: num
 
 export const TabsContent = ({value, children}: {value: string, children: React.ReactNode}) => {
     const active = useTabs().activeValue;
-    return active === value ? <div className="tabs-content">{children}</div> : null;
+    return (
+        <div className={`tabs-content ${active === value ? 'active' : ''}`}>
+            {children}
+        </div>
+    );
 }

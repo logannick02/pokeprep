@@ -1,22 +1,90 @@
 .combobox {
     width: 100%;
     position: relative;
+    font-size: 16px;
+}
+
+.combobox .value {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 36px;
 }
 
 .combobox input {
     all: unset;
     width: 100%;
-    position: relative;
     text-align: left;
     padding-bottom: 0.25rem;
     border-bottom: 1px solid #f5f5f5;
-    transition: border-bottom 0.3s ease-in;
+    transition: border-color 0.3s ease-in;
+    cursor: default;
 }
 
 .combobox input:hover {
-    border-bottom: 1px solid #a78bfa;
+    border-color: #a78bfa;
+}
+
+.combobox input.open {
+    border-color: #a78bfa;
 }
 
 .combobox ul {
+    z-index: 10;
+    top: calc(100% - 0.6rem);
     position: absolute;
+    display: none;
+    list-style: none;
+    background: #3f3f3f;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    padding: 0;
+    overflow-y: auto;
+    max-height: 200px;
+    width: 100%;
+}
+
+.combobox ul.open {
+    display: block;
+}
+
+.combobox ul li {
+    padding: 4px;
+    cursor: pointer;
+}
+
+.combobox ul .no-options {
+    cursor: none;
+    pointer-events: none;
+}
+
+.combobox .chevron {
+    position: absolute;
+    fill: #f5f5f5;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.combobox .chevron.open {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.combobox .clear {
+    position: absolute;
+    cursor: pointer;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.combobox .clear:hover path {
+    stroke: #ef4444;
+    transition: stroke 0.2s ease-in;
 }

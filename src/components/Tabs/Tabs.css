@@ -1,9 +1,20 @@
+.tabs-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .tabs-list {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     position: relative;
-    width: 100%;
+    width: fit-content;
 }
 
 .tabs-list button {
@@ -36,3 +47,10 @@
     animation: flash 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.tabs-content {
+    display: none;
+}
+
+.tabs-content.active {
+    display: block;
+}

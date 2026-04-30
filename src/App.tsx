@@ -1,12 +1,32 @@
 import { useState } from 'react'
-import { GenerationContext } from "./context/GenerationContext";
+import { GenerationProvider } from "./context/GenerationContext";
+import { Pokemon } from './classes/Pokemon';
 import { Button } from './components/Button/Button'
 import { Team } from './components/Team/Team'
 import { UtilWrapper } from './components/UtilWrapper/UtilWrapper'
 import './App.css'
 
 function App() {
-  const [curGeneration, setCurGeneration] = useState(9)
+  const [generation, setGeneration] = useState(6);
+  const [yourTeam, setYourTeam] = useState<(Pokemon | undefined)[]>([]);
+  const [opponentTeam, setOpponentTeam] = useState<(Pokemon | undefined)[]>([]);
+
+  const updateYourTeam = (index: number, pokemon: Pokemon | undefined) => {
+    setYourTeam(prev => {
+      const updatedYourTeam = [...prev];
+      updatedYourTeam[index] = pokemon;
+      return updatedYourTeam;
+    });
+  }
+
+  const updateOpponentTeam = (index: number, pokemon: Pokemon | undefined) => {
+    setOpponentTeam(prev => {
+      const updatedOpponentTeam = [...prev];
+      updatedOpponentTeam[index] = pokemon;
+      return updatedOpponentTeam;
+    });
+  }
+
   const generations = [
     {id: 4, name: 'DPP'},
     {id: 5, name: 'B/W'},
@@ -15,19 +35,10 @@ function App() {
     {id: 8, name: 'S/S'},
     {id: 9, name: 'S/V'}
   ];
-  /*
-    setupGen() should do 3 things:
-      * set state of both the current generation and calls in data based on that generation
-      * sets the button to its "selected" state
-      * resets ALL Pokemon and movesets
-  */
-  const setupGen = (generation: number) => {
-    setCurGeneration(generation); 
-
-  }
+  
 
   return (
-    <GenerationContext.Provider value={curGeneration}>
+    <GenerationProvider generation={generation} setGeneration={setGeneration}>
       <>
         <header>
           <h1 className="logo"><span style={{color: "#a78bfa"}}>Poke</span>Prep</h1>
@@ -38,10 +49,10 @@ function App() {
                 <Button 
                   key={data.id} 
                   content={data.name} 
-                  isSelected={data.id === curGeneration}
+                  isSelected={data.id === generation}
                   leftEdge={data.id === 4}
                   rightEdge={data.id === 9}
-                  onClick={() => setupGen(data.id)}
+                  onClick={() => setGeneration(data.id)}
                 />
               </li>
             ))}
@@ -51,18 +62,22 @@ function App() {
         <main>
             <div className="team-section">
               <h2>Your Team:</h2>
-              <Team />
+              <Team onUpdate={updateYourTeam}/>
             </div>
 
-            <UtilWrapper />
+            <UtilWrapper yourTeam={yourTeam} opponentTeam={opponentTeam}/>
 
             <div className="team-section">
               <h2>Opponent Team:</h2>
-              <Team />
+              <Team onUpdate={updateOpponentTeam}/>
             </div>
         </main>
       </>
-    </GenerationContext.Provider>
+
+      <footer>
+        <p> Built by <a href="logannick02.github.io">Logan Caraway</a> | Data from <a href="https://pokeapi.co/">PokeAPI</a> | Parts of UI inspired by <a href="https://mypokemonteam.com/">My Pokemon Team</a></p>
+      </footer>
+    </GenerationProvider>
   )
 }
 

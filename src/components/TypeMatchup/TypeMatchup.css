@@ -1,4 +1,17 @@
 .type-matchup {
+    table-layout: fixed;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    border-collapse: collapse;
+}
+
+.tm-display table {
+    border-spacing: 0;
+}
+
+.tm-display th, .tm-display td {
+    padding: 4px;
+    width: 80px;
+    overflow: hidden;
 }
