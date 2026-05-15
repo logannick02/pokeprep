@@ -1,15 +1,15 @@
-import { useGeneration } from "../context/GenerationContext";
 import { gen2TypeChart, gen6TypeChart, typeColors } from "../data/TypeCharts";
 
-export const getMultiplier = (attacking: string, defending: string) => {
-    const {generation} = useGeneration();
+export const getMultiplier = (
+  attacking: string | null,
+  defending: string | null,
+  generation: number
+): number => {
+  if (!attacking || !defending) return 1;
 
-    if (generation >= 6) {
-        return gen6TypeChart[attacking][defending] ?? 1
-    } else {
-        return gen2TypeChart[attacking][defending] ?? 1
-    }
-}
+  const chart = generation >= 6 ? gen6TypeChart : gen2TypeChart;
+  return chart[attacking]?.[defending] ?? 1;
+};
 
 export const getColor = (type: string): string => {
     return typeColors[type] ?? "transparent";

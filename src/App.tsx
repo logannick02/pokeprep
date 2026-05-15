@@ -3,6 +3,7 @@ import { GenerationProvider } from "./context/GenerationContext";
 import { Pokemon } from './classes/Pokemon';
 import { Button } from './components/Button/Button'
 import { Team } from './components/Team/Team'
+import { Header } from './components/Header/Header';
 import { UtilWrapper } from './components/UtilWrapper/UtilWrapper'
 import './App.css'
 
@@ -27,37 +28,15 @@ function App() {
     });
   }
 
-  const generations = [
-    {id: 4, name: 'DPP'},
-    {id: 5, name: 'B/W'},
-    {id: 6, name: 'X/Y'},
-    {id: 7, name: 'S/M'},
-    {id: 8, name: 'S/S'},
-    {id: 9, name: 'S/V'}
-  ];
+  // TODO: move main and footer into their own components
+  // key main such that when generation is changed it will remount everything
+  // update the way Pokemon are updated by creating a new instance
+  // change it to a type rather than a class ??
   
-
   return (
     <GenerationProvider generation={generation} setGeneration={setGeneration}>
       <>
-        <header>
-          <h1 className="logo"><span style={{color: "#a78bfa"}}>Poke</span>Prep</h1>
-          <h3>Build better teams.</h3>
-          <ul>
-            {generations.map((data) => (
-              <li>
-                <Button 
-                  key={data.id} 
-                  content={data.name} 
-                  isSelected={data.id === generation}
-                  leftEdge={data.id === 4}
-                  rightEdge={data.id === 9}
-                  onClick={() => setGeneration(data.id)}
-                />
-              </li>
-            ))}
-          </ul>
-        </header>
+        <Header generation={generation} setGeneration={setGeneration}/>
 
         <main>
             <div className="team-section">

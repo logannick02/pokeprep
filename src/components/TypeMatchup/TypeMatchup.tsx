@@ -3,6 +3,7 @@ import { useGeneration } from "../../context/GenerationContext";
 import { Pokemon } from "../../classes/Pokemon";
 import { getMultiplier, getColor } from "../../utils/Utils";
 import { gen2TypeChart, gen6TypeChart } from "../../data/TypeCharts";
+import { DynamicTd } from "../DynamicTd/DynamicTd";
 
 export const TypeMatchup = ({yourTeam, opponentTeam}: {yourTeam: (Pokemon|undefined)[], opponentTeam: (Pokemon|undefined)[]}) => {
     const {generation} = useGeneration();
@@ -23,7 +24,8 @@ export const TypeMatchup = ({yourTeam, opponentTeam}: {yourTeam: (Pokemon|undefi
                             <tr key={index}>
                                 <td>{pkmn.name}</td>
                                 {Object.keys(typeChart).map((type) => (
-                                    <td>{getMultiplier(type, pkmn.types[0]) * getMultiplier(type, pkmn.types[1])}</td>
+                                    <DynamicTd val={getMultiplier(type, pkmn.types[0], generation) 
+                                        * getMultiplier(type, pkmn.types[1], generation)} />
                                 ))}
                             </tr>
                         ))}
@@ -40,9 +42,15 @@ export const TypeMatchup = ({yourTeam, opponentTeam}: {yourTeam: (Pokemon|undefi
                                 <th style={{backgroundColor: getColor(type)}} key={type}>{type.charAt(0).toUpperCase() + type.slice(1)}</th>
                             ))}
                         </tr>
-                        <tr>
-                            <td></td>
-                        </tr>
+                        {opponentTeam.filter((p): p is Pokemon => p !== undefined).map((pkmn, index) => (
+                            <tr key={index}>
+                                <td>{pkmn.name}</td>
+                                {Object.keys(typeChart).map((type) => (
+                                    <DynamicTd val={getMultiplier(type, pkmn.types[0], generation) 
+                                        * getMultiplier(type, pkmn.types[1], generation)} />
+                                ))}
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

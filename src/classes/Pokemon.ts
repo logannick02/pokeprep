@@ -3,7 +3,7 @@ export class Pokemon {
     name: string;
     ability: string | undefined;
     item: string | undefined;
-    types: string[];
+    types: (string | null)[];
     moves: (string | undefined)[];
     nature: string;
     evs: [number, number, number, number, number, number];
@@ -12,7 +12,7 @@ export class Pokemon {
     happiness: number;
     level: number;
 
-    constructor(name: string, types: string[]) {
+    constructor(name: string, types: (string | null)[]) {
         this.name = name;
         this.types = types;
         this.moves = [];
